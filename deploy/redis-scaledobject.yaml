@@ -1,0 +1,21 @@
+apiVersion: keda.k8s.io/v1alpha1
+kind: ScaledObject
+metadata:
+  name: redis-scaledobject
+  namespace: default
+  labels:
+    deploymentName: redis-consumer
+spec:
+  scaleTargetRef:
+    deploymentName: redis-consumer
+  pollingInterval: 15
+  cooldownPeriod: 200
+  maxReplicaCount: 10
+  triggers:
+    - type: redis
+      metadata:
+        address: REDIS_HOST
+        listName: <enter_redis_list>
+        listLength: "10"
+      authenticationRef:
+        name: keda-redis-triggerauth

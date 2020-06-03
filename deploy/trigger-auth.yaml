@@ -1,0 +1,9 @@
+apiVersion: keda.k8s.io/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: keda-redis-triggerauth
+spec:
+  secretTargetRef:
+    - parameter: password
+      name: redis-password
+      key: credentials
